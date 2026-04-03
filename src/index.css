@@ -2,16 +2,16 @@
   --bg-color: #f8fafc; /* Light cream/white paper */
   --grid-color: #e2e8f0; /* Light gray grid lines */
   
-  --post-it-yellow: #fef08a;
-  --post-it-blue: #bae6fd;
-  --post-it-pink: #fbcfe8;
+  --post-it-yellow: #f4d75d;
+  --post-it-blue: #ade8f4;
+  --post-it-pink: #f8c8dc;
   --post-it-green: #bbf7d0;
 
-  --text-dark: #0f172a;
+  --text-dark: #1a1a1a;
   --text-muted: #64748b;
 
-  --accent-ink: #2563eb; /* Pen color */
-  --accent-red: #ef4444; /* Corrections pen */
+  --accent-ink: #4a7bb0; /* Marker Blue from logo */
+  --accent-red: #d94e5e; /* Marker Red from logo */
 
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', Courier, monospace;
@@ -171,3 +171,90 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-dark);
 }
+/* Print Specific Styles */
+@media print {
+  body {
+    background: white !important;
+    background-image: none !important;
+    color: black !important;
+    padding: 0 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .layout-container {
+    padding: 1rem !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Flatten UI for paper */
+  .post-it, .math-box {
+    transform: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    background: white !important;
+    margin-bottom: 1.5rem !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .post-it::after, .post-it::before {
+    display: none !important;
+  }
+
+  .marker-highlight::before {
+    background-color: rgba(253, 224, 71, 0.3) !important; /* Lighter for printing */
+  }
+
+  h1, h2, h3 {
+    color: black !important;
+    page-break-after: avoid;
+  }
+
+  /* Show full text content during print */
+  .math-box {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Standardizing table grids for paper */
+  .summary-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+}
+
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  padding: 8rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.carousel-viewport {
+  max-width: 1400px;
+  width: 90vw;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.math-box {
+  will-change: transform, opacity;
+}
+
+

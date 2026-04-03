@@ -1,20 +1,26 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 
-// Initialize Gemini with API key from environment variables
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
+// Initialize Groq with API key from environment variables
+const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 
+// NOTE: dangerouslyAllowBrowser is required because this is a client-side Vite app.
+// In a production app, you would proxy these requests through a backend.
+const groq = apiKey ? new Groq({ 
+  apiKey: apiKey,
+  dangerouslyAllowBrowser: true 
+}) : null;
+
+/**
+ * Chatbot context query using Groq
+ */
 export const queryTranscriptContext = async (question, transcriptContext) => {
-  if (!genAI) {
-    throw new Error("Missing VITE_GEMINI_API_KEY in .env.local file.");
+  if (!groq) {
+    throw new Error("Missing VITE_GROQ_API_KEY. Please add it to your .env.local and restart the app.");
   }
 
-  // Reverting to base flash model
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-  // The structured prompt that guides the AI
   const prompt = `
-You are the Meeting Hub AI Assistant. Your job is to answer questions based strictly on the following meeting transcript.
+You are QUAN, the AI Assistant for the QUANTIFY platform. 
+Your specialty is distilling chaotic meeting transcripts into structured, quantified data.
 
 Transcript Context:
 ---
@@ -24,83 +30,99 @@ ${transcriptContext}
 User Question: ${question}
 
 Instructions:
-1. Answer the question directly and concisely based ONLY on the Transcript Context above.
-2. If the answer is not in the transcript, state that you don't know based on the provided context.
-3. If referencing a specific event or decision, include the timestamp in bold (e.g., **[04:10]**).
+1. If the user sends a casual greeting, respond warmly.
+2. For transcript-related questions, answer directly and concisely based on the Context.
+3. If referencing a specific event, include the timestamp in bold (e.g., **[04:10]**).
   `;
 
   try {
-    const result = await model.generateContent(prompt);
-    return result.response.text();
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: "llama-3.3-70b-versatile",
+    });
+    return chatCompletion.choices[0]?.message?.content || "";
   } catch (error) {
-    console.error("AI Generation Error:", error);
-    throw new Error("Failed to generate a response from the AI. Check your API key or network connection.");
+    console.error("Groq Chat Error:", error);
+    if (error.status === 429) {
+      throw new Error("Groq Rate Limit Reached. Please wait a moment.");
+    }
+    throw new Error("Failed to generate a response from Groq: " + error.message);
   }
 };
 
-export const parseUploadedTranscript = async (rawText) => {
-  if (!genAI) throw new Error("Missing VITE_GEMINI_API_KEY in .env.local file.");
-
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+/**
+ * Intelligent transcript analysis using Groq
+ */
+export const parseUploadedTranscript = async (rawText, baseDate = null) => {
+  if (!groq) throw new Error("Missing VITE_GROQ_API_KEY. Please add it to your .env.local.");
 
   const prompt = `
 You are an expert NLP data-extraction engine.
 Analyze the following raw meeting transcript and extract highly structured intelligence.
 You MUST output raw JSON fulfilling this exact schema:
-IMPORTANT: Do NOT output any markdown backticks (\`\`\`json). Output raw curly braces only.
 
 {
-  "title": "A short 3-5 word title derived from the transcript.",
-  "date": "Extracted date or 'Unknown Date'",
-  "duration": "Estimated duration (e.g., '45m') based on timestamps, or 'Unknown'",
-  "wordCount": [Integer of rough word count],
+  "title": "A short 3-5 word title",
+  "date": "DD/MM/YYYY",
+  "duration": "e.g., 45m",
+  "wordCount": [Integer],
   "overallSentiment": "positive" | "neutral" | "negative",
-  "participants": ["Array of distinct speaker names"],
-  "decisions": [
-    { "type": "decision", "text": "The major decision made" }
-  ],
-  "actionItems": [
-    { "type": "action", "text": "Task description", "owner": "Assigned Person", "date": "Deadline, or '-'" }
-  ],
+  "participants": ["Name1", "Name2"],
+  "decisions": [{ "type": "decision", "text": "..." }],
+  "actionItems": [{ "type": "action", "text": "...", "owner": "...", "date": "DD/MM/YYYY" }],
   "sentimentTimeline": [
     {
       "time": "MM:SS",
-      "value": [Integer 0 to 100],
-      "speaker": "Active speaker at this segment",
-      "textSegment": "The exact literal quote from the transcript that justifies this score.",
-      "isHighlight": true or false (Set true ONLY if it's a major conflict or major agreement moment)
+      "value": 0-100,
+      "speaker": "...",
+      "textSegment": "...",
+      "isHighlight": true/false
     }
   ]
 }
 
-CRITICAL RULES FOR sentimentTimeline:
-1. Generate a timeline point roughly every 5 minutes of dialogue, OR at major shifts in conversation tone.
-2. The "value" must be a vibe score from 0 (extreme conflict/anger) to 100 (extreme consensus/enthusiasm). 50 is neutral.
-3. The "textSegment" MUST accurately reflect the speaker's tone, pulling a real sentence from the transcript.
+CRITICAL DATE RULES:
+1. Base meeting date: ${baseDate || 'Extracted from transcript'}.
+2. Calculate deadlines based on this date (e.g., "next Friday").
+3. Use "-" for unknown deadlines.
 
-RAW TRANSCRIPT TO PROCESS:
+CRITICAL RULES FOR sentimentTimeline:
+1. Generate a timeline point roughly every 2-3 minutes of dialogue, OR at major shifts in conversation tone.
+2. The "value" must be a vibe score from 0 (extreme failure/conflict) to 100 (extreme success/consensus). 50 is neutral.
+3. TECHNICAL BLOCKERS ARE NEGATIVE: If the team agrees that something is "broken", "unacceptable", "cannot ship", or "delayed", the score for that segment MUST be low (0-40), even if the tone is calm. Professional consensus on a failure should NOT be scored as a positive success moment.
+4. The "textSegment" MUST accurately reflect the speaker's tone, pulling a real sentence from the transcript.
+
+RAW TRANSCRIPT:
 ---
-${rawText.substring(0, 50000)}
+${rawText.substring(0, 30000)}
 ---
 `;
 
   try {
-    const result = await model.generateContent(prompt);
-    let textOutput = result.response.text();
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: "llama-3.3-70b-versatile",
+      response_format: { type: "json_object" }
+    });
 
-    try {
-      // Sometimes Gemini wraps JSON in markdown blocks even with mimeType set
-      if (textOutput.includes('\`\`\`')) {
-        textOutput = textOutput.replace(/\`\`\`json/gi, '').replace(/\`\`\`/g, '').trim();
-      }
-      return JSON.parse(textOutput);
-    } catch (parseErr) {
-      console.error("Failed to parse this JSON: ", textOutput);
-      throw new Error("AI returned invalid JSON: " + parseErr.message);
+    const textOutput = chatCompletion.choices[0]?.message?.content || "";
+    
+    // Groq supports response_format: json_object, so parsing should be direct.
+    // But we use the regex fallback just in case of SDK variations.
+    const jsonMatch = textOutput.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error("AI did not return valid JSON. Raw: " + textOutput.substring(0, 50));
     }
+
+    return JSON.parse(jsonMatch[0]);
   } catch (error) {
-    console.error("AI Parsing Error:", error);
-    // Return explicit error message (e.g., API key invalid, rate limit, or safety)
-    throw new Error(error.message || "Failed to parse the transcript structure via AI.");
+    console.error("Groq Parsing Error:", error);
+    if (error.status === 429) {
+      // Re-throw specific error code for the UI to catch
+      const err = new Error("Rate Limit");
+      err.code = 429;
+      throw err;
+    }
+    throw error;
   }
 };

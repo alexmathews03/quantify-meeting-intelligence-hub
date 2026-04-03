@@ -131,7 +131,7 @@ export default function AuthPage() {
             style={{ padding: '1rem', fontSize: '1.1rem', marginTop: '1rem', justifyContent: 'center' }}
             disabled={loading}
           >
-            {loading ? 'Processing...' : (isLogin ? 'Log In to Meeting Hub' : 'Create Account')}
+            {loading ? 'Processing...' : (isLogin ? 'Log In to QUANTIFY' : 'Create Account') }
           </button>
         </form>
 

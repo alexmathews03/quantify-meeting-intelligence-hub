@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import { Smile, Frown, Activity, Quote } from 'lucide-react';
+import { Smile, Frown, Activity, Quote, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function SentimentTab({ meeting }) {
   const data = meeting?.sentimentTimeline || [];
   const [selectedPoint, setSelectedPoint] = useState(null);
+  const [expandedHighlight, setExpandedHighlight] = useState(null);
 
   const handleChartClick = (e) => {
     if (e && e.activePayload && e.activePayload.length > 0) {
       setSelectedPoint(e.activePayload[0].payload);
     }
+  };
+
+  const toggleHighlight = (idx) => {
+    setExpandedHighlight(expandedHighlight === idx ? null : idx);
   };
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -25,6 +30,22 @@ export default function SentimentTab({ meeting }) {
     return null;
   };
 
+  const getVibeLabel = (value) => {
+    if (value >= 80) return 'Strong consensus and enthusiasm';
+    if (value >= 60) return 'Generally positive and collaborative';
+    if (value >= 40) return 'Neutral or mixed reactions';
+    if (value >= 20) return 'Tension and disagreement present';
+    return 'Significant conflict or frustration';
+  };
+
+  const getVibeColor = (value) => {
+    if (value >= 60) return { bg: '#f0fdf4', border: 'var(--accent-ink)' };
+    if (value <= 40) return { bg: '#fef2f2', border: 'var(--accent-red)' };
+    return { bg: '#fffbeb', border: 'var(--post-it-yellow)' };
+  };
+
+  const highlights = data.filter(d => d.isHighlight);
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 350px', gap: '2rem' }}>
       
@@ -37,7 +58,7 @@ export default function SentimentTab({ meeting }) {
         
         <div style={{ width: '100%', height: '350px' }}>
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }} onClick={handleChartClick}>
+            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--grid-color)" />
               <XAxis dataKey="time" stroke="var(--text-dark)" />
               <YAxis domain={[0, 100]} stroke="var(--text-dark)" />
@@ -47,16 +68,33 @@ export default function SentimentTab({ meeting }) {
                 dataKey="value" 
                 stroke="var(--accent-ink)" 
                 strokeWidth={4} 
-                dot={{ r: 6, stroke: 'var(--text-dark)', fill: 'var(--post-it-yellow)', strokeWidth: 2, cursor: 'pointer' }}
-                activeDot={{ r: 8, stroke: 'var(--text-dark)', fill: 'var(--accent-red)', strokeWidth: 2, cursor: 'pointer' }}
+                dot={{ 
+                  r: 8, 
+                  stroke: 'var(--text-dark)', 
+                  fill: 'var(--post-it-yellow)', 
+                  strokeWidth: 2, 
+                  cursor: 'pointer',
+                  onClick: (data) => setSelectedPoint(data.payload)
+                }}
+                activeDot={{ 
+                  r: 10, 
+                  stroke: 'var(--text-dark)', 
+                  fill: 'var(--accent-red)', 
+                  strokeWidth: 2, 
+                  cursor: 'pointer',
+                  onClick: (data) => setSelectedPoint(data.payload)
+                }}
+                onClick={(e) => {
+                  if (e && e.activePayload) setSelectedPoint(e.activePayload[0].payload);
+                }}
               />
             </LineChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Side Legend / Highlights */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxHeight: '500px', overflowY: 'auto', paddingRight: '1rem' }}>
+      {/* Side Panel */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxHeight: '500px', overflowY: 'auto', paddingRight: '0.5rem' }}>
         
         {selectedPoint ? (
           <div className="math-box dark-shadow" style={{ padding: '1.5rem', background: 'white' }}>
@@ -65,16 +103,19 @@ export default function SentimentTab({ meeting }) {
             </h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}><strong>[{selectedPoint.time}]</strong> • Vibe: {selectedPoint.value}</p>
             <div style={{ 
-              background: selectedPoint.value >= 60 ? '#f0fdf4' : selectedPoint.value <= 40 ? '#fef2f2' : '#fffbeb', 
+              background: getVibeColor(selectedPoint.value).bg, 
               padding: '1rem', 
-              borderLeft: `4px solid ${selectedPoint.value >= 60 ? 'var(--accent-ink)' : selectedPoint.value <= 40 ? 'var(--accent-red)' : 'var(--post-it-yellow)'}`, 
+              borderLeft: `4px solid ${getVibeColor(selectedPoint.value).border}`, 
               fontStyle: 'italic', 
               marginBottom: '0.5rem',
               lineHeight: '1.5'
             }}>
               "{selectedPoint.textSegment}"
             </div>
-            <p style={{ margin: 0, fontWeight: 'bold' }}>— {selectedPoint.speaker}</p>
+            <p style={{ margin: '0.5rem 0 0 0', fontWeight: 'bold' }}>— {selectedPoint.speaker}</p>
+            <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>
+              {getVibeLabel(selectedPoint.value)}
+            </p>
           </div>
         ) : (
           <div className="post-it blue">
@@ -83,20 +124,56 @@ export default function SentimentTab({ meeting }) {
           </div>
         )}
 
-        {data.filter(d => d.isHighlight).length > 0 && (
-          <h3 style={{ margin: '1rem 0 0 0', paddingBottom: '0.5rem', borderBottom: '2px solid var(--grid-color)' }}>Key Highlights</h3>
+        {highlights.length > 0 && (
+          <h3 style={{ margin: '0.5rem 0 0 0', paddingBottom: '0.5rem', borderBottom: '2px solid var(--grid-color)' }}>Key Highlights</h3>
         )}
         
-        {data.filter(d => d.isHighlight).map((hl, idx) => (
-          <div key={idx} className={`post-it ${hl.value >= 50 ? 'green' : 'pink'}`} style={{ cursor: 'pointer', padding: '1rem' }} onClick={() => setSelectedPoint(hl)}>
-            <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: 0, marginBottom: '0.5rem' }}>
-              {hl.value >= 50 ? <Smile size={18} /> : <Frown size={18} />} {hl.value >= 50 ? 'Consensus' : 'Conflict'}
-            </h4>
-            <p style={{ margin: 0, fontSize: '0.9rem' }}>
-              <strong>[{hl.time}]</strong> Significant shift detected from {hl.speaker}.
-            </p>
-          </div>
-        ))}
+        {highlights.map((hl, idx) => {
+          const isExpanded = expandedHighlight === idx;
+          const colors = getVibeColor(hl.value);
+          
+          return (
+            <div 
+              key={idx} 
+              className={`post-it ${hl.value >= 50 ? 'green' : 'pink'}`} 
+              style={{ cursor: 'pointer', padding: '1rem', transition: 'all 0.3s ease' }} 
+              onClick={() => toggleHighlight(idx)}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: 0, marginBottom: isExpanded ? '0.75rem' : 0 }}>
+                  {hl.value >= 50 ? <Smile size={18} /> : <Frown size={18} />} 
+                  {hl.value >= 50 ? 'Consensus' : 'Conflict'} — [{hl.time}]
+                </h4>
+                {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+              </div>
+              
+              {isExpanded && (
+                <div style={{ marginTop: '0.5rem' }}>
+                  <div style={{ 
+                    background: colors.bg, 
+                    padding: '0.75rem', 
+                    borderLeft: `4px solid ${colors.border}`,
+                    fontStyle: 'italic',
+                    lineHeight: '1.5',
+                    marginBottom: '0.75rem'
+                  }}>
+                    "{hl.textSegment}"
+                  </div>
+                  <p style={{ margin: 0, fontWeight: 'bold', fontSize: '0.9rem' }}>— {hl.speaker}</p>
+                  <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                    Vibe Score: {hl.value}/100 — {getVibeLabel(hl.value)}
+                  </p>
+                </div>
+              )}
+              
+              {!isExpanded && (
+                <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>
+                  Significant shift detected from {hl.speaker}. <span style={{ textDecoration: 'underline', fontSize: '0.85rem' }}>Click to expand</span>
+                </p>
+              )}
+            </div>
+          );
+        })}
 
       </div>
     </div>

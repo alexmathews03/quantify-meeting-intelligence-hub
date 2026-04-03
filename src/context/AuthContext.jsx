@@ -32,6 +32,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
+    sessionStorage.clear();
     return signOut(auth);
   };
 

@@ -1,0 +1,20 @@
+Date: 15-01-2026
+Meeting: Emergency Launch Review
+
+Alex: Okay everyone, we're 48 hours from launch. What's the status?
+John: Honestly, it's not looking good. The database migration is failing 20% of the time in staging.
+Sarah: And I found a critical race condition in the checkout flow.
+Alex: A race condition? How bad?
+Sarah: It allows users to bypass payment. We can't ship with that.
+Alex: Yeah, we can't ship with that. That's a hard blocker.
+Emma: I agree. If we launch now, we'll have a PR nightmare.
+John: I need at least 3 days to rewrite the migration scripts properly.
+Alex: Okay, so we're officially delaying the launch. No question about it.
+Liam: I'll notify the marketing team. We need to push the announcement back.
+Alex: Sarah, priority one is that race condition. John, fix the migration.
+Sarah: Got it, I'll start now.
+John: I'll need some help from Emma with the indexing.
+Emma: No problem, I'm on it.
+Alex: This is a tough call but it's the right one. Unacceptable to launch a broken product.
+Liam: Agreed. Better late than broken.
+Alex: Let's sync again in 4 hours.

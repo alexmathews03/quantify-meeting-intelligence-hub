@@ -1,13 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Send, User, Bot } from 'lucide-react';
-import { mockChatContext } from '../data/mockData';
 import { queryTranscriptContext } from '../services/aiService';
 
 export default function ChatTab({ meeting }) {
-  const [messages, setMessages] = useState([
+  const storageKey = `chat_${meeting?.id}`;
+  const defaultMessages = [
     { role: 'assistant', content: 'Hello! I have read this meeting transcript. What would you like to know?' }
-  ]);
+  ];
+
+  const [messages, setMessages] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem(storageKey);
+      return saved ? JSON.parse(saved) : defaultMessages;
+    } catch { return defaultMessages; }
+  });
   const [input, setInput] = useState('');
+
+  useEffect(() => {
+    try { sessionStorage.setItem(storageKey, JSON.stringify(messages)); }
+    catch {}
+  }, [messages, storageKey]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -16,7 +28,10 @@ export default function ChatTab({ meeting }) {
     setInput('');
     
     try {
-      const aiResponse = await queryTranscriptContext(currentInput, meeting?.transcriptContext || 'No transcript text was provided.');
+      const transcriptText = meeting?.transcripts
+        ? meeting.transcripts.map(t => t.text).join('\n\n---\n\n')
+        : (meeting?.transcriptContext || 'No transcript text was provided.');
+      const aiResponse = await queryTranscriptContext(currentInput, transcriptText);
       setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
     } catch (err) {
       setMessages(prev => [...prev, { role: 'assistant', content: `Error: ${err.message}` }]);
