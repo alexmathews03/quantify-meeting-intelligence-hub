@@ -30,7 +30,7 @@ graph LR
     Logic --> Context[Historical Recall]
     Items & Sentiment & Context --> Workspace[QUANTIFY Workspace]
     style Engine fill:#f4d75d,stroke:#1a1a1a,stroke-width:2px
-    style Workspace fill:#ade8f4,stroke:#1a1a1a,stroke-width:2px
+    style Workspace fill:#1c1d66,stroke:#1a1a1a,stroke-width:2px
 ```
 
 ---
