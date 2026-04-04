@@ -1,97 +1,87 @@
-# QUANTIFY
+# QUANTIFY 📊✍️
 
-QUANTIFY is a high-performance meeting intelligence platform designed to transform the noise of raw dialogue into structured, actionable data. It eliminates the "Double Work" cycle by distilling expansive transcripts into a single, authoritative source of truth.
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com/)
+[![Groq](https://img.shields.io/badge/Groq-Llama_3.3-orange?style=for-the-badge)](https://groq.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## The Problem
+**QUANTIFY** is a high-performance meeting intelligence platform designed to transform the noise of raw dialogue into structured, actionable data. It eliminates the "Double Work" cycle by distilling expansive transcripts into a single, authoritative source of truth.
 
-Modern organizations generate dozens of expansive meeting transcripts weekly, often exceeding twenty pages in length. Critical outcomes—decisions, action items, and strategic reasoning—are frequently buried in pages of dialogue, forcing teams into a painful "Double Work" cycle of re-discussing things that were already decided instead of executing on them.
+---
 
-## The Solution
+## 🚩 The Problem
+
+Modern organizations generate dozens of expansive meeting transcripts weekly, often exceeding twenty pages in length. Critical outcomes—decisions, action items, and strategic reasoning—are frequently buried in pages of dialogue, forcing teams into a painful **"Double Work"** cycle of re-discussing things that were already decided instead of executing on them.
+
+## 🏛️ The Solution
 
 QUANTIFY is an intelligent meeting intelligence platform that automatically distills raw conversation into structured, actionable data. By utilizing high-performance language models to extract key points and visualize interaction sentiment, it eliminates administrative overhead and ensures teams move from discussion to delivery without friction.
 
-## System Architecture
+---
+
+## 🧩 System Architecture
 
 ```mermaid
-graph TD
-    A[Raw Transcript .vtt/.txt] --> B(QUAN AI Engine)
-    B --> C{Distillation Layer}
-    C --> D[Action Items & Decisions]
-    C --> E[Sentiment Analytics]
-    C --> F[Historical Context]
-    D & E & F --> G[QUANTIFY Workspace]
+graph LR
+    Input[Raw Transcript .vtt/.txt] --> Engine(QUAN AI Engine)
+    Engine --> Logic{Distillation Layer}
+    Logic --> Items[Action Items & Decisions]
+    Logic --> Sentiment[Sentiment Analytics]
+    Logic --> Context[Historical Recall]
+    Items & Sentiment & Context --> Workspace[QUANTIFY Workspace]
+    style Engine fill:#f4d75d,stroke:#1a1a1a,stroke-width:2px
+    style Workspace fill:#ade8f4,stroke:#1a1a1a,stroke-width:2px
 ```
 
 ---
 
-## Key Features
+## 🛠️ Core Functionality
 
-- **Automated Distillation**: Automatically extract meeting outcomes, owners, and deadlines from raw dialogue.
-- **Sentiment Analytics**: Visualize high-impact moments and technical blockers through a precise interaction timeline.
-- **Historical Context (QUAN)**: A dedicated AI assistant trained on your meeting history to recover exactly what was said and why.
-- **Rigid Data Structure**: All parsed information is organized into a persistent, searchable workspace powered by Cloud Firestore.
-
-## Application Overview
-
-### The Landing Page
-Distill chaos instantly with a simple drag-and-drop workspace.
-![Landing Page](docs/screenshots/landing_page_new.png)
-
-### The Workspace (Your Desk)
-A centralized hub for all meeting intelligence, organized by date and impact.
-![Dashboard](docs/screenshots/dashboard_new.png)
+| **Distilled Intelligence** | **Atmospheric Awareness** |
+| :---: | :---: |
+| ![Ghostwriter Summary](docs/screenshots/feature_summary.png) | ![Mood Ring Vibe](docs/screenshots/feature_vibe.png) |
+| **Outcomes & Assignments**: Automated extraction of decisions and tasks. | **Sentiment Analytics**: Visualize interaction peaks and blockers. |
+| **Instant Recall (QUAN)** | **The Digital Desk** |
+| ![Oracle Chat](docs/screenshots/feature_chat.png) | ![Your Desk](docs/screenshots/feature_desk.png) |
+| **Historical Context**: Chat with meeting data for deep clarification. | **Centralized Hub**: A persistent, 'Post-it' style meeting registry. |
 
 ---
 
-## Tech Stack
+## ⚙️ Tech Stack
 
-- **Frontend**: React (Vite)
-- **Animations**: Framer Motion (3D Rotating Features)
-- **Data Visualization**: Recharts
-- **Database**: Cloud Firestore (NoSQL)
-- **Authentication**: Firebase Auth
-- **AI Engine**: Groq (Llama 3.3 70B Versatile)
-- **Iconography**: Lucide React
-
-## Setup Instructions
-
-### Prerequisites
-
-- Node.js (v18+)
-- A Groq API Key
-- A Firebase Project (Firestore & Auth enabled)
-
-### Local Installation
-
-1. **Clone & Enter Registry**:
-   ```bash
-   git clone <repository-url>
-   cd quantify-desk
-   ```
-
-2. **Initialize Dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Configure Environment**:
-   Create a `.env.local` file in the root directory:
-   ```env
-   VITE_FIREBASE_API_KEY=your_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_domain
-   VITE_FIREBASE_PROJECT_ID=your_id
-   VITE_FIREBASE_STORAGE_BUCKET=your_bucket
-   VITE_FIREBASE_MESSAGING_SENDER_ID=your_id
-   VITE_FIREBASE_APP_ID=your_app_id
-   VITE_GROQ_API_KEY=your_groq_key
-   ```
-
-4. **Launch Dev Server**:
-   ```bash
-   npm run dev
-   ```
+*   **Runtime**: [Node.js](https://nodejs.org/) (Vite)
+*   **Intelligence**: [Groq SDK](https://groq.com/) (Llama 3.3 70B Versatile)
+*   **Database & Auth**: [Firebase](https://firebase.google.com/) (Cloud Firestore)
+*   **Animations**: [Framer Motion](https://www.framer.com/motion/) (3D UI & Transitions)
+*   **Visualization**: [Recharts](https://recharts.org/)
+*   **Design System**: [Vanilla CSS](https://developer.mozilla.org/en-S/docs/Web/CSS) (Sketchbook Aesthetic)
 
 ---
 
-## License
+## 🚀 Setup Instructions
+
+### 1. Initialize Registry
+```bash
+git clone <repository-url>
+cd quantify-desk
+npm install
+```
+
+### 2. Configure Environment
+Create a `.env.local` file in the root directory:
+```env
+VITE_FIREBASE_API_KEY=your_key
+VITE_FIREBASE_AUTH_DOMAIN=your_domain
+VITE_FIREBASE_PROJECT_ID=your_id
+VITE_GROQ_API_KEY=your_groq_key
+```
+
+### 3. Launch Workspace
+```bash
+npm run dev
+```
+
+---
+
+## 📜 License
 MIT © 2026 QUANTIFY Team
