@@ -9,17 +9,17 @@
 
 ---
 
-## 🚩 The Problem
+## The Problem
 
 Modern organizations generate dozens of expansive meeting transcripts weekly, often exceeding twenty pages in length. Critical outcomes—decisions, action items, and strategic reasoning—are frequently buried in pages of dialogue, forcing teams into a painful **"Double Work"** cycle of re-discussing things that were already decided instead of executing on them.
 
-## 🏛️ The Solution
+## The Solution
 
 QUANTIFY is an intelligent meeting intelligence platform that automatically distills raw conversation into structured, actionable data. By utilizing high-performance language models to extract key points and visualize interaction sentiment, it eliminates administrative overhead and ensures teams move from discussion to delivery without friction.
 
 ---
 
-## 🧩 System Architecture
+## System Architecture
 
 ```mermaid
 graph LR
@@ -29,13 +29,13 @@ graph LR
     Logic --> Sentiment[Sentiment Analytics]
     Logic --> Context[Historical Recall]
     Items & Sentiment & Context --> Workspace[QUANTIFY Workspace]
-    style Engine fill:#f4d75d,stroke:#1a1a1a,stroke-width:2px
+    style Engine fill:#7a6818,stroke:#1a1a1a,stroke-width:2px
     style Workspace fill:#1c1d66,stroke:#1a1a1a,stroke-width:2px
 ```
 
 ---
 
-## 🛠️ Core Functionality
+## Core Functionality
 
 | **Distilled Intelligence** | **Atmospheric Awareness** |
 | :---: | :---: |
@@ -47,7 +47,7 @@ graph LR
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 *   **Runtime**: [Node.js](https://nodejs.org/) (Vite)
 *   **Intelligence**: [Groq SDK](https://groq.com/) (Llama 3.3 70B Versatile)
@@ -58,7 +58,7 @@ graph LR
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### 1. Initialize Registry
 ```bash
@@ -83,5 +83,5 @@ npm run dev
 
 ---
 
-## 📜 License
+## License
 MIT © 2026 QUANTIFY Team
