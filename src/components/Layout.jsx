@@ -36,6 +36,8 @@ export default function Layout() {
           {user ? (
             <>
               <Link to="/dashboard" style={{ textDecoration: 'none', color: 'var(--text-dark)', fontWeight: 600 }} className="sketch-underline">Desk</Link>
+              <Link to="/tasks" style={{ textDecoration: 'none', color: 'var(--text-dark)', fontWeight: 600 }} className="sketch-underline">Tasks</Link>
+              <Link to="/analytics" style={{ textDecoration: 'none', color: 'var(--text-dark)', fontWeight: 600 }} className="sketch-underline">Health</Link>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'var(--post-it-blue)', padding: '0.5rem 1rem', border: '2px solid var(--text-dark)', boxShadow: '2px 2px 0px rgba(0,0,0,0.1)' }}>
                 <User size={18} />
                 <span style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>{user.email.split('@')[0]}</span>

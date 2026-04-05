@@ -6,6 +6,9 @@ import { db } from '../firebase';
 import { collection, query, where, onSnapshot, deleteDoc, doc, addDoc, serverTimestamp, getDocs, updateDoc, arrayUnion } from 'firebase/firestore';
 import { parseUploadedTranscript } from '../services/aiService';
 import { normalizeDate } from '../utils/dateUtils';
+import GlobalChat from '../components/GlobalChat';
+import { chunkText, generateEmbedding } from '../utils/ragUtils';
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -96,6 +99,21 @@ export default function Dashboard() {
         const normalizedNewDate = normalizeDate(parsedData.date);
         let matchedMeetingId = sessionMeetingsRef.current[normalizedNewDate + parsedData.title];
 
+        let generatedEmbeddedChunks = [];
+        try {
+          if (text && !parsedData.isSkeleton) {
+            const rawChunks = chunkText(text, 150);
+            for (const cText of rawChunks) {
+              const vec = await generateEmbedding(cText);
+              generatedEmbeddedChunks.push({ text: cText, vector: vec });
+            }
+          }
+        } catch (embErr) {
+          console.error("Gemini Embedding Error:", embErr);
+          // Fails gracefully; chat will just skip vector search for this file
+        }
+
+
         if (!matchedMeetingId && !parsedData.isSkeleton) {
           const existingQuery = query(collection(db, 'meetings'), where('userId', '==', user.uid));
           const existingDocs = await getDocs(existingQuery);
@@ -124,7 +142,9 @@ export default function Dashboard() {
             transcripts: arrayUnion({ fileName: file.name, text, uploadedAt: new Date().toISOString() }),
             decisions: arrayUnion(...(parsedData.decisions || [])),
             actionItems: arrayUnion(...(parsedData.actionItems || [])),
+            embeddedChunks: arrayUnion(...generatedEmbeddedChunks)
           });
+
         } else {
           const docRef = await addDoc(collection(db, "meetings"), {
             userId: user.uid,
@@ -139,6 +159,7 @@ export default function Dashboard() {
             sentimentTimeline: parsedData.sentimentTimeline || [],
             transcripts: [{ fileName: file.name, text, uploadedAt: new Date().toISOString() }],
             transcriptContext: text,
+            embeddedChunks: generatedEmbeddedChunks,
             createdAt: serverTimestamp(),
             isSkeleton: parsedData.isSkeleton || false
           });
@@ -253,6 +274,9 @@ export default function Dashboard() {
         )}
       </div>
       <style>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
+      
+      {/* Global Workspace Chatbot */}
+      {!loading && <GlobalChat meetings={meetings} />}
     </div>
   );
 }

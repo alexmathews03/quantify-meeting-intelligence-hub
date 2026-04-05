@@ -4,6 +4,8 @@ import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import MeetingDetails from './pages/MeetingDetails';
 import AuthPage from './pages/AuthPage';
+import Analytics from './pages/Analytics';
+import Tasks from './pages/Tasks';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
@@ -23,6 +25,16 @@ function App() {
             <Route path="meeting/:id" element={
               <ProtectedRoute>
                 <MeetingDetails />
+              </ProtectedRoute>
+            } />
+            <Route path="analytics" element={
+              <ProtectedRoute>
+                <Analytics />
+              </ProtectedRoute>
+            } />
+            <Route path="tasks" element={
+              <ProtectedRoute>
+                <Tasks />
               </ProtectedRoute>
             } />
           </Route>

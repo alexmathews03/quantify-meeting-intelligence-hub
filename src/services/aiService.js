@@ -1,4 +1,5 @@
 import Groq from "groq-sdk";
+import { generateEmbedding, findTopChunks } from '../utils/ragUtils';
 
 // Initialize Groq with API key from environment variables
 const apiKey = import.meta.env.VITE_GROQ_API_KEY;
@@ -124,5 +125,91 @@ ${rawText.substring(0, 30000)}
       throw err;
     }
     throw error;
+  }
+};
+
+/**
+ * Global Organizational Chatbot context query using Groq
+ */
+export const queryGlobalContext = async (question, allMeetingsMetadata) => {
+  if (!groq) {
+    throw new Error("Missing VITE_GROQ_API_KEY. Please add it to your .env.local and restart the app.");
+  }
+
+  // 1. Format the metadata into a readable string (high level context)
+  const formattedMetadata = allMeetingsMetadata.map(m => {
+    return `
+Meeting Title: ${m.title || 'Untitled'}
+Date: ${m.date || 'Unknown Date'}
+Participants: ${(m.participants || []).join(', ') || 'Unknown'}
+Overall Sentiment: ${m.overallSentiment || 'neutral'}
+Decisions Made:
+${(m.decisions || []).map(d => '- ' + d.text).join('\n') || '- None'}
+Action Items:
+${(m.actionItems || []).map(a => '- ' + a.text + ' (Owner: ' + (a.owner || 'Unassigned') + ', Due: ' + (a.date || 'None') + ')').join('\n') || '- None'}
+    `.trim();
+  }).join('\n\n---\n\n');
+
+  // 2. Perform Vector Retrieval on the raw chunks
+  let retrievedContext = "";
+  try {
+    // Flatten all embedded chunks across all meetings
+    const allChunks = [];
+    allMeetingsMetadata.forEach(m => {
+      if (m.embeddedChunks && m.embeddedChunks.length > 0) {
+        m.embeddedChunks.forEach(c => {
+          allChunks.push({ ...c, meetingTitle: m.title, meetingDate: m.date });
+        });
+      }
+    });
+
+    if (allChunks.length > 0) {
+      // Create vector for query
+      const queryVector = await generateEmbedding(question);
+      // Retrieve top 5 most relevant paragraphs across all history
+      const topChunks = findTopChunks(queryVector, allChunks, 5);
+      
+      retrievedContext = topChunks.map(c => `[From Meeting: ${c.meetingTitle} on ${c.meetingDate}]:\n"${c.text}"`).join('\n\n');
+    }
+  } catch (err) {
+    console.error("Vector RAG Failed (falling back to metadata only):", err);
+  }
+
+  const prompt = `
+You are QUAN, the Global Organizational AI Assistant for the QUANTIFY platform. 
+You have access to the aggregated metadata of ALL meetings across the user's workspace, AND retrieved specific transcript snippets that matched the user's question via vector search.
+Your job is to answer questions across different meetings, identify trends, track employee action items, and provide high-level insights.
+
+RETRIEVED TRANSCRIPT SNIPPETS (Highly Relevant):
+---
+${retrievedContext || 'No raw transcript chunks retrieved.'}
+---
+
+ALL MEETINGS METADATA CONTEXT:
+---
+${formattedMetadata}
+---
+
+User Question: ${question}
+
+Instructions:
+1. If the user sends a casual greeting, respond warmly.
+2. For questions about specific details, prioritize the RETRIEVED TRANSCRIPT SNIPPETS.
+3. Be concise, professional, and directly answer the prompt based ONLY on the provided Contexts.
+4. If the answer cannot be found, say you don't have enough data in the current summaries, but do not make things up.
+  `;
+
+  try {
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: "llama-3.3-70b-versatile",
+    });
+    return chatCompletion.choices[0]?.message?.content || "";
+  } catch (error) {
+    console.error("Groq Global Chat Error:", error);
+    if (error.status === 429) {
+      throw new Error("Groq Rate Limit Reached. Please wait a moment.");
+    }
+    throw new Error("Failed to generate a response from Groq: " + error.message);
   }
 };
