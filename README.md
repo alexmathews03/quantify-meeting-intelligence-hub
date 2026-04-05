@@ -1,6 +1,6 @@
 # QUANTIFY 
 
-[![Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Click_Here-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](YOUR_GOOGLE_DRIVE_LINK_HERE)
+[![Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Click_Here-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/file/d/1Sb1hDNkM7FTJ7Wi1cfHCHdCWAuh3PrDr/view?usp=sharing)
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com/)
@@ -44,16 +44,16 @@ graph LR
 
 | **The Landing Page** | **The Digital Desk** |
 | :---: | :---: |
-| ![Homepage Preview](docs/screenshots/homepage.png) | ![Your Desk](docs/screenshots/feature_desk.png) |
+| ![Homepage Preview](screenshots/home.png) | ![Your Desk](docs/screenshots/feature_desk.png) |
 | **The Front Door**: A beautifully animated welcome section. | **Centralized Hub**: A persistent, 'Post-it' style meeting registry. |
 | **Distilled Intelligence** | **Atmospheric Awareness** |
 | ![Ghostwriter Summary](docs/screenshots/feature_summary.png) | ![Mood Ring Vibe](docs/screenshots/feature_vibe.png) |
 | **Outcomes & Assignments**: Automated extraction of decisions and tasks. | **Sentiment Analytics**: Visualize interaction peaks and blockers. |
 | **Master Task Board** | **Workspace Health (Analytics)** |
-| ![Master Task Board](docs/screenshots/feature_tasks.png) | ![Workspace Health](docs/screenshots/feature_health.png) |
+| ![Master Task Board](screenshots/action_board.png) | ![Workspace Health](screenshots/workspace_health.png) |
 | **Action Items Central**: Master checklist tracking everyone's assignments. | **Organizational Analytics**: Graphs team morale and task velocity. |
 | **Global RAG Chatbot** | **Instant Recall (QUAN)** |
-| ![Global Chatbot](docs/screenshots/feature_global_chat.png) | ![Oracle Chat](docs/screenshots/feature_chat.png) |
+| ![Global Chatbot](screenshots/quan.png) | ![Oracle Chat](docs/screenshots/feature_chat.png) |
 | **Cross-Meeting Intelligence**: True math-based vector searches! | **Meeting Context**: Chat with meeting data for deep clarification. |
 
 ---
