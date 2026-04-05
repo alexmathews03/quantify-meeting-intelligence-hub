@@ -23,12 +23,15 @@ QUANTIFY is an intelligent meeting intelligence platform that automatically dist
 
 ```mermaid
 graph LR
-    Input[Raw Transcript .vtt/.txt] --> Engine(QUAN AI Engine)
+    Input[Raw Transcript .vtt/.txt] --> EmbedStore[(Vector Embeddings)]
+    Input --> Engine(QUAN AI Engine)
     Engine --> Logic{Distillation Layer}
     Logic --> Items[Action Items & Decisions]
     Logic --> Sentiment[Sentiment Analytics]
-    Logic --> Context[Historical Recall]
-    Items & Sentiment & Context --> Workspace[QUANTIFY Workspace]
+    Logic --> Context[Meeting Specific Recall]
+    EmbedStore --> GlobalRAG{Global Workspace RAG}
+    GlobalRAG --> GlobalContext[Cross-Meeting Recall]
+    Items & Sentiment & Context & GlobalContext --> Workspace[QUANTIFY Workspace]
     style Engine fill:#7a6818,stroke:#1a1a1a,stroke-width:2px
     style Workspace fill:#1c1d66,stroke:#1a1a1a,stroke-width:2px
 ```
@@ -43,7 +46,13 @@ graph LR
 | **Outcomes & Assignments**: Automated extraction of decisions and tasks. | **Sentiment Analytics**: Visualize interaction peaks and blockers. |
 | **Instant Recall (QUAN)** | **The Digital Desk** |
 | ![Oracle Chat](docs/screenshots/feature_chat.png) | ![Your Desk](docs/screenshots/feature_desk.png) |
-| **Historical Context**: Chat with meeting data for deep clarification. | **Centralized Hub**: A persistent, 'Post-it' style meeting registry. |
+| **Meeting Context**: Chat with meeting data for deep clarification. | **Centralized Hub**: A persistent, 'Post-it' style meeting registry. |
+| **Workspace Health (Analytics)** | **Master Task Board** |
+| *(Recharts Visualizations)* | *(Kanban Task List)* |
+| **Organizational Analytics**: Graphs team morale and task velocity across all meetings. | **Action Items Central**: Master checklist tracking every employee's assignments. |
+| **Global RAG Chatbot** | |
+| *(Vector Retrieval)* | |
+| **Cross-Meeting Intelligence**: True math-based vector RAG searches across your entire workspace history! | |
 
 ---
 
@@ -51,6 +60,7 @@ graph LR
 
 *   **Runtime**: [Node.js](https://nodejs.org/) (Vite)
 *   **Intelligence**: [Groq SDK](https://groq.com/) (Llama 3.3 70B Versatile)
+*   **Vector Retrieval (RAG)**: [Google Gemini](https://ai.google.dev/) (Text-Embedding-004)
 *   **Database & Auth**: [Firebase](https://firebase.google.com/) (Cloud Firestore)
 *   **Animations**: [Framer Motion](https://www.framer.com/motion/) (3D UI & Transitions)
 *   **Visualization**: [Recharts](https://recharts.org/)
@@ -74,6 +84,7 @@ VITE_FIREBASE_API_KEY=your_key
 VITE_FIREBASE_AUTH_DOMAIN=your_domain
 VITE_FIREBASE_PROJECT_ID=your_id
 VITE_GROQ_API_KEY=your_groq_key
+VITE_GEMINI_API_KEY=your_gemini_key
 ```
 
 ### 3. Launch Workspace
