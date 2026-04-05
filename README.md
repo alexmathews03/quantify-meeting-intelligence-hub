@@ -42,19 +42,19 @@ graph LR
 
 ## Core Functionality
 
-| **Distilled Intelligence** | **Atmospheric Awareness** |
+| **The Landing Page** | **The Digital Desk** |
 | :---: | :---: |
+| ![Homepage Preview](docs/screenshots/homepage.png) | ![Your Desk](docs/screenshots/feature_desk.png) |
+| **The Front Door**: A beautifully animated welcome section. | **Centralized Hub**: A persistent, 'Post-it' style meeting registry. |
+| **Distilled Intelligence** | **Atmospheric Awareness** |
 | ![Ghostwriter Summary](docs/screenshots/feature_summary.png) | ![Mood Ring Vibe](docs/screenshots/feature_vibe.png) |
 | **Outcomes & Assignments**: Automated extraction of decisions and tasks. | **Sentiment Analytics**: Visualize interaction peaks and blockers. |
-| **Instant Recall (QUAN)** | **The Digital Desk** |
-| ![Oracle Chat](docs/screenshots/feature_chat.png) | ![Your Desk](docs/screenshots/feature_desk.png) |
-| **Meeting Context**: Chat with meeting data for deep clarification. | **Centralized Hub**: A persistent, 'Post-it' style meeting registry. |
-| **Workspace Health (Analytics)** | **Master Task Board** |
-| *(Recharts Visualizations)* | *(Kanban Task List)* |
-| **Organizational Analytics**: Graphs team morale and task velocity across all meetings. | **Action Items Central**: Master checklist tracking every employee's assignments. |
-| **Global RAG Chatbot** | **The Landing Page** |
-| *(Vector Retrieval)* | ![Homepage Preview](docs/screenshots/homepage.png) |
-| **Cross-Meeting Intelligence**: True math-based vector RAG searches across your entire workspace history! | **The Front Door**: A beautifully animated welcome section. |
+| **Master Task Board** | **Workspace Health (Analytics)** |
+| *(Kanban Task List)* | *(Recharts Visualizations)* |
+| **Action Items Central**: Master checklist tracking everyone's assignments. | **Organizational Analytics**: Graphs team morale and task velocity. |
+| **Global RAG Chatbot** | **Instant Recall (QUAN)** |
+| *(Vector Retrieval)* | ![Oracle Chat](docs/screenshots/feature_chat.png) |
+| **Cross-Meeting Intelligence**: True math-based vector searches! | **Meeting Context**: Chat with meeting data for deep clarification. |
 
 ---
 
