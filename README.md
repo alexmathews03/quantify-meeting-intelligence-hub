@@ -52,9 +52,9 @@ graph LR
 | **Workspace Health (Analytics)** | **Master Task Board** |
 | *(Recharts Visualizations)* | *(Kanban Task List)* |
 | **Organizational Analytics**: Graphs team morale and task velocity across all meetings. | **Action Items Central**: Master checklist tracking every employee's assignments. |
-| **Global RAG Chatbot** | |
-| *(Vector Retrieval)* | |
-| **Cross-Meeting Intelligence**: True math-based vector RAG searches across your entire workspace history! | |
+| **Global RAG Chatbot** | **The Landing Page** |
+| *(Vector Retrieval)* | ![Homepage Preview](docs/screenshots/homepage.png) |
+| **Cross-Meeting Intelligence**: True math-based vector RAG searches across your entire workspace history! | **The Front Door**: A beautifully animated welcome section. |
 
 ---
 
