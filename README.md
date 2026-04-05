@@ -50,10 +50,10 @@ graph LR
 | ![Ghostwriter Summary](docs/screenshots/feature_summary.png) | ![Mood Ring Vibe](docs/screenshots/feature_vibe.png) |
 | **Outcomes & Assignments**: Automated extraction of decisions and tasks. | **Sentiment Analytics**: Visualize interaction peaks and blockers. |
 | **Master Task Board** | **Workspace Health (Analytics)** |
-| *(Kanban Task List)* | *(Recharts Visualizations)* |
+| ![Master Task Board](docs/screenshots/feature_tasks.png) | ![Workspace Health](docs/screenshots/feature_health.png) |
 | **Action Items Central**: Master checklist tracking everyone's assignments. | **Organizational Analytics**: Graphs team morale and task velocity. |
 | **Global RAG Chatbot** | **Instant Recall (QUAN)** |
-| *(Vector Retrieval)* | ![Oracle Chat](docs/screenshots/feature_chat.png) |
+| ![Global Chatbot](docs/screenshots/feature_global_chat.png) | ![Oracle Chat](docs/screenshots/feature_chat.png) |
 | **Cross-Meeting Intelligence**: True math-based vector searches! | **Meeting Context**: Chat with meeting data for deep clarification. |
 
 ---
