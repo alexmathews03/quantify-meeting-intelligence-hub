@@ -73,9 +73,10 @@ graph LR
 **Databases:**
 *   **Firebase (Cloud Firestore)**: NoSQL document-based database used to store extracted AI JSON outputs, metadata, and mathematical vector embeddings.
 
-**APIs & Third-Party Tools (RAG Architecture):**
-*   **Groq SDK (Llama 3.3 70B)**: Our specialized Distillation Engine mapping raw dialogue into structured JSON decision entities at near-zero latency.
-*   **Google Gemini SDK (text-embedding-004)**: Our Vector retrieval engine that converts overlapping meeting chunks into 1,536-dimensional float arrays for client-side Cosine Similarity searches.
+### 🧠 The Vector RAG Architecture
+To power our "Global Intelligence Chatbot" (QUAN) across all of an organization's meetings, we built a client-side Retrieval-Augmented Generation (RAG) pipeline:
+*   **Google Gemini SDK (text-embedding-004)**: Generates 1,536-dimensional mathematical vector embeddings for every meeting paragraph chunk. This enables blazing-fast Cosine Similarity searches across the entire workspace history to find relevant context.
+*   **Groq SDK (Llama 3.3 70B)**: Receives the retrieved vector context and uses its high-speed LPU inference to instantly distill, synthesize, and cite the exact meeting the answer came from.
 
 ---
 
