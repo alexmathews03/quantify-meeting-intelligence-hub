@@ -1,0 +1,23 @@
+Meeting Date: March 20, 2026
+Attendees: Alex (Manager), Sarah, Jessica, Michael, Board of Directors
+
+[00:00:00] Alex: Members of the Board, thank you for joining us today for this impromptu progress report. I am beyond thrilled to announce that our strategic pivot away from paid advertising and toward organic referral growth has been a massive, unprecedented success. It completely revitalized our momentum. Jessica, do you want to share the specific growth metrics with the board?
+
+[00:00:35] Jessica: Absolutely, I'd love to! Since we paused our paid ads last Friday and launched the viral referral program in its place, our Customer Acquisition Cost dropped from $15 per user down to practically nothing—about 80% reduction. Better yet, the organic word-of-mouth is exploding. We officially crossed 10,000 active users this morning, which completely shatters our Q1 stretch goal. The product team has been firing on all cylinders to make this happen!
+
+[00:01:20] Board Member 1: This is genuinely phenomenal news, Alex and Jessica. Congratulations to the whole team for navigating that pivot so smoothly. The Board is extremely pleased with these numbers. However, with viral growth comes technical debt. Have you considered scaling the server infrastructure to handle this sudden massive influx of tens of thousands
+of users? We don't want the site crashing while we have momentum.
+
+[00:02:00] Sarah: Yes, absolutely, that is our engineering team's number one priority right now. We rigorously monitored the database stress testing curves last night as the European traffic woke up, and we are running at about 80% capacity right now on the CPU. It's stable, but if the hyper-growth continues linearly this week, we might see some minor latency. I'm actively planning to upgrade our entire AWS instance fleet to the next highest tier to stay well ahead of the curve.
+
+[00:02:40] Alex: We absolutely cannot risk any downtime now that we have this viral momentum going. Decision made: we are officially upgrading our AWS infrastructure to the Enterprise Tier. We have the budget. Sarah, I need you to execute the complete database and compute node upgrade by this weekend so we are fully ready for the massive Monday morning traffic spike.
+
+[00:03:15] Sarah: Consider it done, Alex. I will schedule the maintenance window and upgrade the complete database tier by Sunday night. Minimal disruption.
+
+[00:03:30] Michael: Just to chime in from a finance perspective here—this Enterprise Tier upgrade is well within the revised Q2 budget I prepared. In fact, since we aren't burning $50,000 a month on useless Google ads anymore, our financial runway has actually extended by an incredible 8 extra months, even with the expensive Enterprise servers.
+
+[00:04:00] Alex: Literally music to my ears, Michael. Financial security is huge for us right now. Michael, given this turnaround, can you prepare a formal, polished Q1 Financial Summary presentation to distribute to the Series A investors? They need to see this win.
+
+[00:04:25] Michael: Yes, I can prioritize that. I will have the formal Q1 Financial Summary presentation prepared and emailed to all stakeholders by next Wednesday. 
+
+[00:04:45] Alex: Excellent. Thank you to the Board for your continued trust and support through the pivot, and congratulations once again to the incredible team. Let's keep this momentum going and conquer Q2!

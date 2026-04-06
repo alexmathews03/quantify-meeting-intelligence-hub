@@ -272,13 +272,7 @@ export default function LandingPage() {
               The most intelligent meeting desk for fast-moving teams. We distill the chaos so you can focus on the next move.
             </motion.p>
 
-            <motion.div
-              style={{ y: postItY, position: 'absolute', top: '-4rem', right: '-2rem', transform: 'rotate(15deg) scale(0.8)', zIndex: -1 }}
-              className="post-it pink no-print"
-            >
-              <h4 className="sketch-underline">Idea:</h4>
-              <p>Sync Jira?</p>
-            </motion.div>
+
           </div>
 
           <motion.div

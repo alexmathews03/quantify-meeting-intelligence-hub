@@ -1,0 +1,28 @@
+Meeting Date: March 15, 2026
+Attendees: Alex (Manager), Sarah, David, Jessica, Michael (Finance)
+
+[00:00:00] Alex: Welcome everyone to the major Q1 Strategy meeting. We have a massive amount of ground to cover today regarding our expansion goals and overall company health. Let's start with the big picture stuff with Finance. Michael, how do the numbers look since the start of the year? Are we on track for our Series A funding goals?
+
+[00:00:25] Michael: Hi Alex, and hi everyone. The high-level MRR numbers are strong, but I have major, major concerns about our marketing spend right now. To be blunt, we burned through $50,000 last month alone on paid Google and Facebook ads, and our user conversion rate actually dropped by exactly 12%. Our Customer Acquisition Cost is completely out of control. If we continue this reckless trend, we will run out of our entire Q2 runway budget before May begins. We need to enact a freeze on all paid advertising immediately to stop the bleeding.
+
+[00:01:10] Jessica: Michael, I feel like that's a bit extreme of a reaction. Marketing takes time to optimize. We are just testing new demographics and A/B testing copy. We've collected great data. Give me just one more week to optimize the campaign targeting and I guarantee those CAC numbers will drop.
+
+[00:01:30] Alex: I completely understand your perspective Jessica, and I know your team worked hard on the ad creative, but I have to agree with Michael's financial concerns here. We cannot burn venture cash blindly while failing to see ROI. Decision made: we are enacting a total freeze on all paid ad campaigns effective today. We need to protect the runway. Jessica, I need you to log into the platforms and completely pause the Google and Facebook ads by end of day today.
+
+[00:02:10] Jessica: Okay, I disagree, but understood. I will pause all paid campaigns by end of day today so we stop spending. But what should my marketing team focus their energy on instead if we aren't running ads?
+
+[00:02:25] Alex: We need to pivot entirely to organic, viral growth. Think Dropbox in 2010. We should immediately launch the referral program we briefly discussed last month. Giving users free premium features if they invite three friends costs us nothing in marketing spend. David, speaking of that, can you have the frontend referral UI designed and spec'd out?
+
+[00:02:50] David: The good news is the referral UI is already half-done from when I was sketching last month. I have the modal designed and the email templates drafted. I just need to hook the designs up to the backend logic. I can comfortably finish polishing the UI and hand it over by next Thursday.
+
+[00:03:15] Sarah: That timeline works for engineering. If David finishes the UI handoff by Thursday, my team can prioritize the database work and have the referral backend API fully integrated and deployed to production by the following Monday. 
+
+[00:03:35] Alex: Excellent synergy. So the strategic decision is we agree to pivot fully away from paid ads and toward the organic referral program. This is our main bet for Q2. David, deliver the complete referral UI by next Thursday. Sarah, deploy the backend infrastructure for it by the Monday after that. Does anyone foresee any blockers?
+
+[00:04:00] Michael: Honestly, no blockers from me. This is a much, much safer financial strategy for us. By cutting the $50k monthly ad spend, we extended our runway significantly. I'll also draft up a completely revised Q2 financial budget predicting this new pivot to present to the board. I'll share the new budget spreadsheet with you, Alex, by tomorrow morning so we can review it.
+
+[00:04:30] Alex: Awesome. That makes me feel much more secure. Also team, since we need to rely on organic growth, let's schedule a dedicated brainstorming session just for crazy, viral organic content ideas. We need to go viral on tech twitter or hackernews. Jessica, can you set up a 2-hour meeting for the creative team to just brainstorm organic strategies? Have that scheduled on the calendar by Wednesday.
+
+[00:05:00] Jessica: Will do. I'll find a gap in everyone's calendar and send out the invite by Wednesday for a deep-dive brainstorming session.
+
+[00:05:15] Alex: Great work today everyone. I know pivoting is stressful, but I feel much better about this direction. We are being smart with our resources. Let's go execute the referral launch.

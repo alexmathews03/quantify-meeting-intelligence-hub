@@ -1,0 +1,40 @@
+WEBVTT
+Kind: captions
+Language: en
+Date: March 4, 2026
+
+00:00:00.000 --> 00:00:15.000
+Alex: Alright team, thank you all for jumping on. It is March 4th, 2026, and we've got a busy week ahead. Let's get started on the weekly engineering and product sync. Sarah, let's start with you. How are we looking on the new Core Features API launch scheduled for this Friday? Have the integration tests passed?
+
+00:00:15.000 --> 00:00:35.000
+Sarah: It's not looking great, to be entirely honest. The code itself is fundamentally sound, but the database migrations are failing consistently when we try to deploy them to the staging environment. Because the new payload schemas are so heavy, we're seeing an unacceptable amount of latency. Some API calls are taking upwards of three seconds to return. The bottom line is we absolutely cannot ship this on Friday. It will tank the user experience. I think we need to delay the API launch to next Wednesday to give us time to optimize the database indexing.
+
+00:00:35.000 --> 00:00:55.000
+Alex: Okay, that is extremely frustrating news, especially since marketing sent out the teaser email yesterday, but I appreciate the transparent heads-up. Shipping broken software is worse than shipping late software. We will officially delay the Core Features API launch to next Wednesday. Let's make sure it's 100% stable before it touches production. Sarah, to get ahead of this, can you investigate the exact cause of the database latency and send me an optimization report by this Friday?
+
+00:00:55.000 --> 00:01:05.000
+Sarah: Yeah, I'll take full ownership of that. The backend team and I will do a deep dive dive into the Postgres query performance. I'll get that optimization report to you by Friday afternoon so we can review it before the weekend.
+
+00:01:05.000 --> 00:01:20.000
+Alex: Perfect, thank you. Moving over to product design. David, where are we with the new user dashboard mockups? I know we discussed trying to make it look less generic and more tactile last week.
+
+00:01:20.000 --> 00:01:35.000
+David: The mockups are looking really phenomenally good! We completely pivoted away from the minimal white-space look and went entirely with the blue and yellow post-it note aesthetic you suggested. It feels very fresh, very tactile, and it totally fits the 'Digital Desk' motif. I have a working Figma prototype, I just need Jessica to approve the final onboarding copy before I can slice it up and hand it over to the front-end devs.
+
+00:01:35.000 --> 00:01:50.000
+Jessica: Thanks David. Yes, I reviewed the Figma prototype this morning. The layout and colors are great, but the onboarding text still feels a little chunky and overwhelming for a new user. It needs to be punchier. I will rewrite the onboarding marketing copy and send it back to you by tomorrow afternoon so we aren't holding up the whole pipeline.
+
+00:01:50.000 --> 00:02:10.000
+Alex: That sounds like an excellent plan. So the official design decision is that we are locked in on the post-it note aesthetic. No more revisions to the color palette or core layout. David, once Jessica gives you the finalized, punchy copy tomorrow, I need you to finalize the dashboard UI files and export the assets by Thursday. Can you do that?
+
+00:02:10.000 --> 00:02:15.000
+David: Yes, absolutely. If I get the copy tomorrow, the Dashboard UI will be totally finalized and handed to engineering by Thursday close-of-business.
+
+00:02:15.000 --> 00:02:35.000
+Alex: Awesome work. Lastly, regarding the company budget. This is more of an operational issue, but we are tracking about 20% higher this quarter than expected on our server infrastructure costs. It looks like we have a bunch of ghost instances running that are draining cash. I need someone to conduct a comprehensive audit of our AWS bill and shut down the vampires.
+
+00:02:35.000 --> 00:02:50.000
+Sarah: Given that my team spun most of those instances up, I can handle that. I'll pull the AWS EC2 and RDS usage metrics, compare them against our active services, and see exactly what we can shut down safely without affecting latency. I will have that audit done and the ghost servers terminated by Monday.
+
+00:02:50.000 --> 00:03:00.000
+Alex: Thank you Sarah, you're a lifesaver. Cutting those costs is critical. Alright, that covers the entire agenda for today. Great collaborative work everyone. Let's hit those strict deadlines! Have a great Tuesday.

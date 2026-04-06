@@ -1,0 +1,15 @@
+Meeting Date: Feb 20, 2026
+Attendees: Alex (Manager), Sarah, Mark (QA)
+
+[00:00:00] Alex: Okay everyone, thanks for jumping on this emergency call. Let's look at the backlog. Mark, I saw the Critical P1 bug report come in this morning regarding the authentication system. What's the exact status? Let's get all the facts out.
+[00:00:15] Mark: It's bad, Alex. Anyone trying to log in via OAuth using Google or Microsoft accounts is getting a 500 server error. Our entire beta testing group has been completely locked out for the last 12 hours. We're seeing thousands of error logs flooding the monitoring dashboard right now.
+[00:00:45] Alex: 12 hours of downtime is totally unacceptable for a beta launch. How did this happen without alerting us sooner?
+[00:01:00] Sarah: I can provide some context on that. We pushed a critical security patch last night around 11 PM to update the external token validation library. It was marked backward compatible, but it looks like the JSON payload structure changed in the new version. The crash is happening exactly at the validation layer where it tries to parse the incoming email string. Our alerts were configured to look for database timeouts, not validation parse errors, which is why the alarms didn't fire in Slack.
+[00:01:40] Alex: Okay, the priority right now is not assigning blame, it is getting our beta testers back online. Decision made: we are immediately reverting last night's release back to Thursday's stable build.
+[00:01:55] Sarah: I agree. That's the safest path. I need to spin up the CI/CD pipeline. I will trigger the rollback deployment immediately. It should take about 15 minutes to run the container swap.
+[00:02:15] Alex: Good. Mark, once that rollback finishes, I need you to manually verify the Google OAuth flow on production immediately. 
+[00:02:25] Mark: Will do. I'll test the OAuth flows the second the deployment greenlights. But Alex, once that's stable, we really need to figure out why this wasn't caught in our staging environment. 
+[00:02:40] Alex: Agreed. The fact that this slipped through QA is a massive failure in our testing pipeline. Mark, I don't want this happening again. I need you to write up a detailed post-mortem incident report explaining the QA gap and proposing automated tests to prevent this specific payload error. Have that on my desk by tomorrow morning.
+[00:03:10] Mark: I'll get on the post-mortem report right away and send it by tomorrow morning. I strongly suspect our staging environment doesn't have the updated OAuth secrets populated, which gave us a false positive.
+[00:03:30] Sarah: Mark is right, I think the mock server in staging swallowed the error. I'll look into our staging parity later this week.
+[00:03:40] Alex: Fine. But let's focus on getting the system back online first. Sarah, initiate that rollback now. Keep me posted in Slack. Thanks everyone.
