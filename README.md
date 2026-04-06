@@ -1,6 +1,6 @@
 # QUANTIFY 
 
-[![Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Click_Here-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](YOUR_GOOGLE_DRIVE_LINK_HERE)
+[![Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Click_Here-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/file/d/1Sb1hDNkM7FTJ7Wi1cfHCHdCWAuh3PrDr/view?usp=sharing)
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com/)
@@ -44,16 +44,16 @@ graph LR
 
 | **The Landing Page** | **The Digital Desk** |
 | :---: | :---: |
-| <img src="docs/screenshots/homepage.png" height="250" /> | <img src="docs/screenshots/feature_desk.png" height="250" /> |
+| <img src="screenshots/home.png" height="250" alt="Homepage Preview" /> | <img src="docs/screenshots/feature_desk.png" height="250" alt="Your Desk" /> |
 | **The Front Door**: A beautifully animated welcome section. | **Centralized Hub**: A persistent, 'Post-it' style meeting registry. |
 | **Distilled Intelligence** | **Atmospheric Awareness** |
 | <img src="docs/screenshots/feature_summary.png" height="250" /> | <img src="docs/screenshots/feature_vibe.png" height="250" /> |
 | **Outcomes & Assignments**: Automated extraction of decisions and tasks. | **Sentiment Analytics**: Visualize interaction peaks and blockers. |
 | **Master Task Board** | **Workspace Health (Analytics)** |
-| <img src="docs/screenshots/feature_tasks.png" height="250" /> | <img src="docs/screenshots/feature_health.png" height="250" /> |
+| <img src="screenshots/action_board.png" height="250" alt="Master Task Board" /> | <img src="screenshots/workspace_health.png" height="250" alt="Workspace Health" /> |
 | **Action Items Central**: Master checklist tracking everyone's assignments. | **Organizational Analytics**: Graphs team morale and task velocity. |
 | **Global RAG Chatbot** | **Instant Recall (QUAN)** |
-| <img src="docs/screenshots/feature_global_chat.png" height="250" /> | <img src="docs/screenshots/feature_chat.png" height="250" /> |
+| <img src="screenshots/quan.png" height="250" alt="Global Chatbot" /> | <img src="docs/screenshots/feature_chat.png" height="250" alt="Oracle Chat" /> |
 | **Cross-Meeting Intelligence**: True math-based vector searches! | **Meeting Context**: Chat with meeting data for deep clarification. |
 
 ---
