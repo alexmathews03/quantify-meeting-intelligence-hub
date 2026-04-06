@@ -1,6 +1,7 @@
 # QUANTIFY 
 
 [![Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Click_Here-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/file/d/1Sb1hDNkM7FTJ7Wi1cfHCHdCWAuh3PrDr/view?usp=sharing)
+[![Approach Document](https://img.shields.io/badge/📄_Read_Approach_Doc-Click_Here-0052CC?style=for-the-badge)](PUT_YOUR_GOOGLE_DOC_LINK_HERE)
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com/)
