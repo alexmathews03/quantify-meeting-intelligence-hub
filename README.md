@@ -60,13 +60,22 @@ graph LR
 
 ## Tech Stack
 
-*   **Runtime**: [Node.js](https://nodejs.org/) (Vite)
-*   **Intelligence**: [Groq SDK](https://groq.com/) (Llama 3.3 70B Versatile)
-*   **Vector Retrieval (RAG)**: [Google Gemini](https://ai.google.dev/) (Text-Embedding-004)
-*   **Database & Auth**: [Firebase](https://firebase.google.com/) (Cloud Firestore)
-*   **Animations**: [Framer Motion](https://www.framer.com/motion/) (3D UI & Transitions)
-*   **Visualization**: [Recharts](https://recharts.org/)
-*   **Design System**: [Vanilla CSS](https://developer.mozilla.org/en-S/docs/Web/CSS) (Sketchbook Aesthetic)
+**Programming Languages:**
+*   **JavaScript (ES6+)**: Core application logic.
+*   **HTML5 / CSS3**: Custom structural UI and "Sketchbook Aesthetic" styling.
+
+**Frameworks:**
+*   **React 18**: Component-based UI rendering.
+*   **Vite**: Ultra-fast frontend build tooling and hot-module replacement.
+*   **Framer Motion**: Complex 3D UI animations and viewport transitions.
+*   **Recharts**: SVG-based data visualization for Health Analytics.
+
+**Databases:**
+*   **Firebase (Cloud Firestore)**: NoSQL document-based database used to store extracted AI JSON outputs, metadata, and mathematical vector embeddings.
+
+**APIs & Third-Party Tools (RAG Architecture):**
+*   **Groq SDK (Llama 3.3 70B)**: Our specialized Distillation Engine mapping raw dialogue into structured JSON decision entities at near-zero latency.
+*   **Google Gemini SDK (text-embedding-004)**: Our Vector retrieval engine that converts overlapping meeting chunks into 1,536-dimensional float arrays for client-side Cosine Similarity searches.
 
 ---
 
