@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { CheckSquare, Square, Calendar, Loader, FileText, User } from 'lucide-react';
+import { CheckSquare, Square, Calendar, Loader, FileText, User, Download } from 'lucide-react';
 
 export default function Tasks() {
   const { user } = useAuth();
@@ -60,15 +60,52 @@ export default function Tasks() {
   const pendingTasks = allTasks.filter(t => !completedTasks[t.id]);
   const doneTasks = allTasks.filter(t => completedTasks[t.id]);
 
+  const exportToCSV = () => {
+    const headers = ['Task', 'Owner', 'Due Date', 'Meeting', 'Status'];
+    const rows = allTasks.map(t => [
+      `"${(t.text || '').replace(/"/g, '""')}"`,
+      `"${(t.owner || 'Unassigned').replace(/"/g, '""')}"`,
+      `"${t.date && t.date !== '-' ? t.date : 'N/A'}"`,
+      `"${(t.meetingTitle || '').replace(/"/g, '""')}"`,
+      completedTasks[t.id] ? 'Completed' : 'Pending'
+    ]);
+    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'quantify_action_items.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   if (loading) {
     return <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', margin: '4rem' }}><Loader className="spin" /> Loading Master Tasks...</div>;
   }
 
   return (
     <div style={{ marginTop: '2rem' }}>
-      <div style={{ marginBottom: '3rem' }}>
-        <h1 style={{ fontSize: '3rem' }}>Master <span className="marker-highlight">Action Board</span></h1>
-        <p style={{ color: 'var(--text-muted)' }}>Found {allTasks.length} total tasks extracted automatically from your meetings.</p>
+      <div style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+        <div>
+          <h1 style={{ fontSize: '3rem' }}>Master <span className="marker-highlight">Action Board</span></h1>
+          <p style={{ color: 'var(--text-muted)' }}>Found {allTasks.length} total tasks extracted automatically from your meetings.</p>
+        </div>
+        {allTasks.length > 0 && (
+          <button
+            onClick={exportToCSV}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              padding: '0.75rem 1.5rem', background: 'var(--text-dark)', color: 'white',
+              border: '2px solid var(--text-dark)', cursor: 'pointer',
+              fontFamily: 'inherit', fontSize: '1rem', fontWeight: 600,
+              boxShadow: '3px 3px 0px rgba(0,0,0,0.2)', transition: 'transform 0.15s ease'
+            }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translate(-2px, -2px)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'translate(0, 0)'; }}
+          >
+            <Download size={18} /> Export CSV
+          </button>
+        )}
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem' }}>
