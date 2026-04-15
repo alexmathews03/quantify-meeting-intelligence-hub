@@ -1,7 +1,14 @@
 # QUANTIFY 
 
+<div align="center">
+
+### 🌐 [**Try the Live App →  quantify-meeting-intelligence-hub.vercel.app**](https://quantify-meeting-intelligence-hub.vercel.app)
+
+</div>
+
 [![Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Click_Here-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/file/d/1Sb1hDNkM7FTJ7Wi1cfHCHdCWAuh3PrDr/view?usp=sharing)
 [![Approach Document](https://img.shields.io/badge/📄_Read_Approach_Doc-Click_Here-0052CC?style=for-the-badge)](https://docs.google.com/document/d/1oglNd46Cm_AHSFLN655OMRf_KTNw_ij5DOJrC6ubeh4/edit?usp=sharing)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://quantify-meeting-intelligence-hub.vercel.app)
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com/)
