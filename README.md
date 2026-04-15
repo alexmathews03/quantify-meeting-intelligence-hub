@@ -2,7 +2,7 @@
 
 <div align="center">
 
-### 🌐 [**Try the Live App →  quantify-meeting-intelligence-hub.vercel.app**](https://quantify-meeting-intelligence-hub.vercel.app)
+### [**Try this Webpage →  quantify-meeting-intelligence-hub.vercel.app**](https://quantify-meeting-intelligence-hub.vercel.app)
 
 </div>
 
